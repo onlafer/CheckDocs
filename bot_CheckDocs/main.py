@@ -13,7 +13,10 @@ from common.bot_cmds_list import private
 
 # ALLOWED_UPDATES = ["message", "edited_message"]
 
-bot = Bot(token=os.getenv("BOT_TOKEN"), default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+bot = Bot(
+    token=os.getenv("BOT_TOKEN"),
+    default=DefaultBotProperties(parse_mode=ParseMode.HTML),
+)
 dp = Dispatcher()
 
 dp.include_router(
@@ -27,6 +30,7 @@ async def start():
         await bot.set_my_commands(
             commands=private, scope=types.BotCommandScopeAllPrivateChats()
         )
+        await bot.set_my_description("Здравствуйте, Вас приветствует Чат-бот «CheckDocs». С моей помощью вы можете проверить ВКР, курсовые работы, КД и другие материалы на актуальность используемых в них ссылок на нормативно-техническую документацию. Чат-бот - это интерактивный помощник по работе с системами Техэксперт.")
         await dp.start_polling(bot)
     finally:
         await bot.session.close()
